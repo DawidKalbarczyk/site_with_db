@@ -1,0 +1,28 @@
+name: Deploy db site to github pages
+on: 
+  push:
+    branches:
+      - env-test
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sprawdzenie poprawności
+        uses: actions/checkout@v4.2.2
+    
+      - name: Build and Deploy
+        uses: JamesMGreene/gh-pages-deploy@v1.0.0
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: JamesMGreene/gh-pages-deploy@v1.0.0
