@@ -2,7 +2,7 @@ name: Deploy db site to github pages
 on: 
   push:
     branches:
-      - env-test
+      - main
 
 permissions:
   contents: write
