@@ -17,12 +17,14 @@ jobs:
       - name: Sprawdzenie poprawności
         uses: actions/checkout@v4.2.2
     
-      - name: Build and Deploy
-        uses: JamesMGreene/gh-pages-deploy@v1.0.0
 
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: JamesMGreene/gh-pages-deploy@v1.0.0
