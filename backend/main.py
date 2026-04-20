@@ -1,4 +1,4 @@
-from backend import FastAPI
+from fastapi import FastAPI
 
 backend = FastAPI()
 
