@@ -1,11 +1,35 @@
-<html>
-    <head>
-        <title>My Website</title>
-    </head>
-    <body>
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Website</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <main class="container">
         <h1>Welcome to My Website</h1>
-        <p>This is a simple website.</p>
         <p>Website for branch: ${ENV_NAME}</p>
         <p>Funny name: ${WEB_TEST}</p>
-    </body>
+
+        <section class="panel">
+            <h2>Test polaczenia z FastAPI</h2>
+
+            <label for="apiBaseUrl">API base URL</label>
+            <input id="apiBaseUrl" type="text" value="http://localhost:8000" />
+
+            <label for="itemId">item_id</label>
+            <input id="itemId" type="number" value="1" min="1" step="1" />
+
+            <label for="itemQ">q</label>
+            <input id="itemQ" type="text" value="test-z-przycisku" />
+
+            <button id="sendBtn" type="button">Wyslij do /items/{item_id}</button>
+
+            <pre id="result" aria-live="polite">Kliknij przycisk, aby wyslac request.</pre>
+        </section>
+    </main>
+
+    <script src="./index.js"></script>
+</body>
 </html>
