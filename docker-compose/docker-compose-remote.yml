@@ -22,6 +22,8 @@ services:
       dockerfile: dockerfile/web/Dockerfile
     image: site-web
     container_name: site-web-${ENV-NAME}
+    environment:
+      WEB_TEST: ${WEB_TEST}
     ports:
       - ${WEB_PORT}:80
     depends_on:

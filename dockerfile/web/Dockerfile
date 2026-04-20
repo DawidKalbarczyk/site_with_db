@@ -4,10 +4,10 @@ RUN apk add --no-cache gettext
 
 WORKDIR /usr/share/nginx/html
 
-COPY index.html ./index.html.template
-COPY index.css ./
-COPY index.js ./
-COPY web_test.sh ./web_test.sh
+COPY web/index.html ./index.html.template
+COPY web/index.css ./
+COPY web/index.js ./
+COPY web/web_test.sh /web_test.sh
 
 RUN chmod +x /web_test.sh
 
