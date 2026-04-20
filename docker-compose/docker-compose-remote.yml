@@ -4,7 +4,7 @@ services:
       context: ..
       dockerfile: dockerfile/postgres/Dockerfile
     image: postgres-db
-    container_name: postgres-db-${ENV-NAME}
+    container_name: postgres-db-${ENV_NAME}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -21,7 +21,7 @@ services:
       context: ..
       dockerfile: dockerfile/web/Dockerfile
     image: site-web
-    container_name: site-web-${ENV-NAME}
+    container_name: site-web-${ENV_NAME}
     environment:
       WEB_TEST: ${WEB_TEST}
     ports:

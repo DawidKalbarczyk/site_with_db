@@ -35,7 +35,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
           WEB_PORT: ${{ secrets.WEB_PORT }}
-          ENV-NAME: ${{ github.ref_name }}
+          ENV_NAME: ${{ github.ref_name }}
         run: |
           docker-compose -f docker-compose/docker-compose-remote.yml -p ${{ github.ref_name }} up --build -d
           
