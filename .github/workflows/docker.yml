@@ -26,6 +26,7 @@ jobs:
           echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
           echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> .env
           echo "WEB_PORT=${{ secrets.WEB_PORT }}" >> .env
+          echo "ENV-NAME=${{ github.ref_name }}" >> .env
 
       - name: Create .env file
         env: 
@@ -34,6 +35,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
           WEB_PORT: ${{ secrets.WEB_PORT }}
+          ENV-NAME: ${{ github.ref_name }}
         run: |
           docker-compose -f docker-compose/docker-compose-remote.yml -p ${{ github.ref_name }} up --build -d
           
