@@ -30,5 +30,14 @@ services:
     depends_on:
       - db
 
+    fastapi:
+      build:
+        context: ..
+        dockerfile: dockerfile/fastapi/Dockerfile
+      image: site-fastapi
+      container_name: site-fastapi-${ENV_NAME}
+      ports:
+        - ${FASTAPI_PORT}:8000
+
 volumes: 
   postgres_data:
