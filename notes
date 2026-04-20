@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Website</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <main class="container">
+        <h1>Welcome to My Website</h1>
+        <p>Website for branch: ${ENV_NAME}</p>
+        <p>Funny name: ${WEB_TEST}</p>
+
+        <section class="panel">
+            <h2>Test polaczenia z FastAPI</h2>
+
+            <label for="apiBaseUrl">API base URL</label>
+            <input id="apiBaseUrl" type="text" value="http://localhost:8000" />
+
+            <label for="itemId">item_id</label>
+            <input id="itemId" type="number" value="1" min="1" step="1" />
+
+            <label for="itemQ">q</label>
+            <input id="itemQ" type="text" value="test-z-przycisku" />
+
+            <button id="sendBtn" type="button">Wyslij do /items/{item_id}</button>
+
+            <pre id="result" aria-live="polite">Kliknij przycisk, aby wyslac request.</pre>
+        </section>
+    </main>
+
+    <script src="./index.js"></script>
+</body>
+</html>
+
+
+
+const apiBaseUrlInput = document.getElementById("apiBaseUrl");
+const itemIdInput = document.getElementById("itemId");
+const itemQInput = document.getElementById("itemQ");
+const sendBtn = document.getElementById("sendBtn");
+const resultEl = document.getElementById("result");
+
+async function sendItemRequest() {
+	const apiBaseUrl = apiBaseUrlInput.value.trim().replace(/\/$/, "");
+	const itemId = Number(itemIdInput.value);
+	const q = itemQInput.value.trim();
+
+	if (!apiBaseUrl) {
+		resultEl.textContent = "Podaj API base URL.";
+		return;
+	}
+
+	if (!Number.isInteger(itemId) || itemId <= 0) {
+		resultEl.textContent = "item_id musi byc dodatnia liczba calkowita.";
+		return;
+	}
+
+	const url = new URL(`${apiBaseUrl}/items/${itemId}`);
+	if (q) {
+		url.searchParams.set("q", q);
+	}
+
+	resultEl.textContent = "Wysylanie...";
+
+	try {
+		const response = await fetch(url.toString(), {
+			method: "GET",
+			headers: {
+				"Accept": "application/json"
+			}
+		});
+
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status} ${response.statusText}`);
+		}
+
+		const data = await response.json();
+		resultEl.textContent = JSON.stringify(data, null, 2);
+	} catch (error) {
+		resultEl.textContent = `Blad: ${error.message}`;
+	}
+}
+
+sendBtn.addEventListener("click", sendItemRequest);
