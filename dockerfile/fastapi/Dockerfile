@@ -8,4 +8,6 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./backend /code/backend
 
-CMD ["uvicorn", "main:backend", "--host", "0.0.0.0", "--port", "10000"]
+ENV PYTHONPATH=/code
+
+CMD ["uvicorn", "backend.main:backend", "--host", "0.0.0.0", "--port", "10000"]
