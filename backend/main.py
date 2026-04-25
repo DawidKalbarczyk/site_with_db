@@ -2,9 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from backend.routers.static_content import router
-from backend.routers.db_insert import router_insert
-from backend.routers.dynamic_content import router_get_users
+from routers.static_content import router
+from routers.db_insert import router_insert
+from routers.dynamic_content import router_get_users
 
 backend = FastAPI(title="Backend DB API", version="1.0.0")
 

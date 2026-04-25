@@ -1,4 +1,4 @@
-FROM python:3.14-slim
+FROM python:3.11-slim
 
 WORKDIR /code
 
@@ -10,4 +10,4 @@ COPY ./backend /code/backend
 
 ENV PYTHONPATH=/code
 
-CMD ["uvicorn", "backend.main:backend", "--host", "0.0.0.0", "--port", "10000"]
+CMD ["uvicorn", "main:backend", "--host", "0.0.0.0", "--port", "10000"]
