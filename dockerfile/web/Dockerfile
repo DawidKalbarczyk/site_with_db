@@ -9,7 +9,8 @@ COPY index.css ./
 COPY index.js ./
 COPY dockerfile/web/web_test.sh /web_test.sh
 
-RUN chmod +x /web_test.sh
+
+RUN sed -i 's/\r$//' /web_test.sh && chmod +x /web_test.sh
 
 
 EXPOSE 80
