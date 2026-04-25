@@ -1,11 +1,11 @@
-FROM python:3.14
+FROM python:3.14-slim
 
 WORKDIR /code
 
-COPY ./requirements.txt /code/requirements.txt
+COPY ./dockerfile/fastapi/requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./backend /code/backend
 
-CMD ["fastapi", "run", "backend/main.py", "--port", "80"]
+CMD ["uvicorn", "backend.main:backend", "--host", "0.0.0.0", "--port", "12345"]

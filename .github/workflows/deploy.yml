@@ -1,30 +1,32 @@
-name: Deploy db site to github pages
-on: 
+name: Wdrożenie na serwer Google (Self-Hosted)
+
+on:
   push:
     branches:
       - main
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-  actions: read
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Sprawdzenie poprawności
-        uses: actions/checkout@v4.2.2
-    
-
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
+    name: Build and Deploy
+    runs-on: self-hosted
+
+    environment: ${{ github.ref_name }}
+
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: JamesMGreene/gh-pages-deploy@v1.0.0
+      - name: Pobranie kodu
+        uses: actions/checkout@v4
+
+      - name: Generowanie pliku .env ze zmiennych
+        run: |
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" > .env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> .env
+          echo "WEB_PORT=${{ secrets.WEB_PORT }}" >> .env
+          echo "WEB_TEST=${{ secrets.WEB_TEST }}" >> .env
+          echo "ENV_NAME=${{ github.ref_name }}" >> .env
+          echo "FASTAPI_PORT=${{ secrets.FASTAPI_PORT }}" >> .env
+
+      - name: Uruchomienie kontenerów (Docker Compose)
+        run: |
+          docker-compose -f docker-compose/docker-compose-remote.yml -p ${{ github.ref_name }} up --build -d
