@@ -11,6 +11,7 @@ COPY dockerfile/web/web_test.sh /web_test.sh
 
 RUN chmod +x /web_test.sh
 
+
 EXPOSE 80
 
 ENTRYPOINT ["/web_test.sh"]
