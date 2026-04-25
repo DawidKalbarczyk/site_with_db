@@ -30,4 +30,5 @@ jobs:
 
       - name: Uruchomienie kontenerów (Docker Compose)
         run: |
-          docker-compose -f docker-compose/docker-compose-remote.yml --env-file .env -p ${{ github.ref_name }} up --build -d
+          cd docker-compose
+          docker-compose -f docker-compose/docker-compose-remote.yml --env-file ../.env -p ${{ github.ref_name }} up --build -d
