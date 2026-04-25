@@ -27,4 +27,4 @@ async def read_item(item_id: int, q: str = None):
 
 backend.include_router(router, prefix="/backend")
 backend.include_router(router_insert, prefix="/backend")
-backend.include_router(router_get_users, prefix="/backend")
+backend.include_router(router_get, prefix="/backend")
