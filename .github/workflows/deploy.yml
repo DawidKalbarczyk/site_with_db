@@ -29,6 +29,7 @@ jobs:
           echo "ENV_NAME=${{ github.ref_name }}" >> .env
           echo "FASTAPI_PORT=${{ secrets.FASTAPI_PORT }}" >> .env
 
+
       - name: Uruchomienie kontenerów (Docker Compose)
         run: |
           cd docker-compose
