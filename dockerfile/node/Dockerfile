@@ -11,6 +11,5 @@ COPY backend/node/src.js ./backend/node/src.js
 COPY frontend ./frontend
 
 ENV NODE_ENV=production
-EXPOSE 3000
 
 CMD ["npm", "start", "--prefix", "./backend/node"]
