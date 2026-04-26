@@ -27,6 +27,7 @@ jobs:
           echo "WEB_TEST=${{ secrets.WEB_TEST }}" >> .env
           echo "ENV_NAME=${{ github.ref_name }}" >> .env
           echo "FASTAPI_PORT=${{ secrets.FASTAPI_PORT }}" >> .env
+          echo "NODE_PORT=${{ secrets.NODE_PORT }}" >> .env
 
       - name: Uruchomienie kontenerów (Docker Compose)
         run: |
