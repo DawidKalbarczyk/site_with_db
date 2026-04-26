@@ -11,3 +11,4 @@ getE("getButton").addEventListener("click", function() {
     alert("Get button clicked with input: " + inputValue);
     // Here you can add code to send the inputValue to your backend API
 });
+

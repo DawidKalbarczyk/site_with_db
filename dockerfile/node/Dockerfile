@@ -1,13 +1,16 @@
 FROM node:24-alpine
 LABEL maintainer="Dawid Kalbarczyk"
 
-WORKDIR code
+WORKDIR /code
 
-COPY config/node/frontend/package.json .
-COPY config/node/frontend/package-lock.json .
-RUN npm install
+COPY backend/node/package.json ./backend/node/
+COPY backend/node/package-lock.json ./backend/node/
+RUN npm ci --omit=dev --prefix ./backend/node
 
-COPY config/node/frontend/ ./
-ENV CI=false
+COPY backend/node/src.js ./backend/node/src.js
+COPY frontend ./frontend
 
-CMD ["npm", "start"]
+ENV NODE_ENV=production
+EXPOSE 3000
+
+CMD ["npm", "start", "--prefix", "./backend/node"]

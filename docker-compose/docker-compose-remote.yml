@@ -15,7 +15,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-
+  node:
+    restart: always
+    build:
+      context: ..
+      dockerfile: dockerfile/node/Dockerfile
+    image: site-node
+    container_name: site-node-${ENV_NAME}
+    environment:
+      WEB_TEST: ${WEB_TEST}
+      ENV_NAME: ${ENV_NAME}
+    ports:
+      - ${NODE_PORT}:3000
+    depends_on:
+      - db
 
   web:
     restart: always
